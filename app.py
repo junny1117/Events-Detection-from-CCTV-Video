@@ -25,23 +25,22 @@ socketio = SocketIO(app)
 USERNAME = 'admin'
 PASSWORD = '1234'
 
-# rtsp_url = "rtsp://username:password@ip_address:port/path"
-# video_stream = VideoStream(rtsp_url)
+# Video stream
 video_stream = VideoStream("test.mp4")
-#video_capture = cv2.VideoCapture(0)
 
 weights_path = 'best.pt'
 roi_intrusion = (100, 200, 300, 400)
 roi_no_parking = (400, 500, 300, 400)
 intrusion_time_threshold = 5
-detector = ObjectDetector(weights_path, roi_intrusion, roi_no_parking, intrusion_time_threshold)
+parking_time_threshold = 10  
+detector = ObjectDetector(weights_path, roi_intrusion, roi_no_parking, intrusion_time_threshold, parking_time_threshold)
 
 tracked_objects = {}
+tracked_events = {}
 
 @app.before_request
 def setup():
     init_db()
-
 
 def login_required(f):
     @wraps(f)
@@ -107,15 +106,13 @@ def select_roi():
     global roi_intrusion, roi_no_parking
     frame = video_stream.get_frame()
 
-    # 프레임 크기 조정 (예: 25%로 축소)
-    scale_percent = 50 # 원하는 크기 비율로 변경 (예: 25%)
+    scale_percent = 50  # 프레임 크기 조정 (예: 50%로 축소)
     width = int(frame.shape[1] * scale_percent / 100)
     height = int(frame.shape[0] * scale_percent / 100)
     dim = (width, height)
 
     resized_frame = cv2.resize(frame, dim, interpolation=cv2.INTER_AREA)
 
-    # 침입 감지 영역 선택
     roi_intrusion_resized = cv2.selectROI("Select Intrusion ROI", resized_frame, fromCenter=False, showCrosshair=True)
     roi_intrusion = (
         int(roi_intrusion_resized[0] / scale_percent * 100),
@@ -125,7 +122,6 @@ def select_roi():
     )
     cv2.destroyWindow("Select Intrusion ROI")
 
-    # 불법 주차 영역 선택
     roi_no_parking_resized = cv2.selectROI("Select No Parking ROI", resized_frame, fromCenter=False, showCrosshair=True)
     roi_no_parking = (
         int(roi_no_parking_resized[0] / scale_percent * 100),
@@ -143,35 +139,37 @@ def select_roi():
 @app.route('/events')
 @login_required
 def events():
-    events = Event.query.order_by(Event.timestamp.desc()).all()  # 최신순 정렬
+    events = db_session.query(Event).order_by(Event.timestamp.desc()).all()  # 최신 이벤트부터 정렬
     return render_template('events.html', events=events)
 
-
 def gen_frames():
-    global tracked_objects
+    global tracked_objects, tracked_events
     while True:
         frame = video_stream.get_frame()
         if frame is None:
             break
-        #ret, frame = video_capture.read()  # USB 웹캠에서 프레임 읽기
-        #if not ret:
-            #break
 
         frame, detected_events = detector.detect_and_draw(frame)
 
         for event in detected_events:
-            new_event = Event(
-                label=event['type'],
-                confidence=event['신뢰도'],
-                timestamp=datetime.datetime.now()
-            )
-            db_session.add(new_event)
-            db_session.commit()
-            socketio.emit('new_event', {
-                'label': new_event.label,
-                'confidence': new_event.confidence,
-                'timestamp': new_event.timestamp.strftime('%Y-%m-%d %H:%M:%S')
-            })
+            event_id = event['type'] + str(int(event['신뢰도'] * 100))  # 이벤트를 구분하는 ID 생성
+
+            # 새로운 이벤트가 트래킹 중이 아니면 처리
+            if event_id not in tracked_events:
+                print(f"New event detected: {event_id}")  # 디버깅용 로그
+                new_event = Event(
+                    label=event['type'],
+                    confidence=event['신뢰도'],
+                    timestamp=datetime.datetime.now()
+                )
+                db_session.add(new_event)
+                db_session.commit()
+                socketio.emit('new_event', {
+                    'label': new_event.label,
+                    'confidence': new_event.confidence,
+                    'timestamp': new_event.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+                })
+                tracked_events[event_id] = new_event.timestamp  # 이벤트를 트래킹에 추가
 
         ret, buffer = cv2.imencode('.jpg', frame)
         frame = buffer.tobytes()
@@ -180,6 +178,3 @@ def gen_frames():
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
-
-    #video_capture.release()
-    #cv2.destroyAllWindows()
