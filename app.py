@@ -143,8 +143,9 @@ def select_roi():
 @app.route('/events')
 @login_required
 def events():
-    events = db_session.query(Event).all()
+    events = Event.query.order_by(Event.timestamp.desc()).all()  # 최신순 정렬
     return render_template('events.html', events=events)
+
 
 def gen_frames():
     global tracked_objects
