@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>이벤트 로그</title>
+</head>
+<body>
+  <h1>이벤트 로그</h1>
+  <table border="1">
+    <tr>
+      <th>시간</th>
+      <th>ID</th>
+      <th>유형</th>
+      <th>Confidence</th>
+    </tr>
+    {% for event in events %}
+    <tr>
+      <td>{{ event.timestamp}}</td>
+      <td>{{ event.id }}</td>
+      <td>{{ event.label }}</td>
+      <td>{{ event.confidence }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <br>
+  <a href="{{ url_for('index') }}">홈으로</a>
+</body>
+</html>
+

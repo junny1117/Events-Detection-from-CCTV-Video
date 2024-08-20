@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>CCTV</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const socket = io();
+            const eventList = document.getElementById("eventList");
+
+            socket.on('new_event', (data) => {
+                const eventItem = document.createElement("li");
+                eventItem.textContent = `${data.timestamp} - ${data.label} (Confidence: ${data.confidence})`;
+                eventList.appendChild(eventItem);
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>CCTV</h1>
+        <nav>
+            <a href="{{ url_for('logout') }}">로그아웃</a>
+        </nav>
+    </header>
+    <main>
+        <img src="{{ url_for('video_feed') }}" alt="CCTV Feed" style="width: 640px; height: 480px;">
+        <br>
+        <h2>감지된 이벤트</h2>
+        <ul id="eventList"></ul>
+        <br><br>
+        <a href="{{ url_for('events') }}">기록</a>
+        <br>
+        <a href="{{ url_for('select_roi') }}">영역 설정</a> 
+        <br>
+        <!--<a href="{{ url_for('settings') }}">영역 설정(좌표)</a> !-->
+    </main>
+</body>
+</html>

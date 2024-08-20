@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>설정</title>
+</head>
+<body>
+  <h1>설정</h1>
+  <form method="post">
+    <h2>침입 감지 구역</h2>
+    <label for="intrusion_x">X:</label>
+    <input type="text" id="intrusion_x" name="intrusion_x" value="{{ request.form.intrusion_x }}"><br>
+    <label for="intrusion_y">Y:</label>
+    <input type="text" id="intrusion_y" name="intrusion_y" value="{{ request.form.intrusion_y }}"><br>
+    <label for="intrusion_width">W:</label>
+    <input type="text" id="intrusion_width" name="intrusion_width" value="{{ request.form.intrusion_width }}"><br>
+    <label for="intrusion_height">H:</label>
+    <input type="text" id="intrusion_height" name="intrusion_height" value="{{ request.form.intrusion_height }}"><br>
+
+    <h2>불법주차 구역</h2>
+    <label for="no_parking_x">X:</label>
+    <input type="text" id="no_parking_x" name="no_parking_x" value="{{ request.form.no_parking_x }}"><br>
+    <label for="no_parking_y">Y:</label>
+    <input type="text" id="no_parking_y" name="no_parking_y" value="{{ request.form.no_parking_y }}"><br>
+    <label for="no_parking_width">W:</label>
+    <input type="text" id="no_parking_width" name="no_parking_width" value="{{ request.form.no_parking_width }}"><br>
+    <label for="no_parking_height">H:</label>
+    <input type="text" id="no_parking_height" name="no_parking_height" value="{{ request.form.no_parking_height }}"><br>
+
+    <input type="submit" value="저장">
+  </form>
+  <a href="{{ url_for('index') }}">홈으로</a>
+</body>
+</html>
