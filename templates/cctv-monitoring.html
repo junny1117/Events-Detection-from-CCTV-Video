@@ -69,21 +69,28 @@
             width: 100%;
             bottom: 0;
         }
+        .event-group {
+            margin-bottom: 20px;
+        }
+        .event-group strong {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
     </style>
-        <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
-        <script>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script>
         document.addEventListener("DOMContentLoaded", () => {
-        const socket = io();
-        const eventList = document.getElementById("eventList");
-    
-        socket.on('new_event', (data) => {
-        const eventItem = document.createElement("li");
-        eventItem.textContent = `${data.timestamp} - ${data.label} (Confidence: ${data.confidence})`;
-        eventList.insertBefore(eventItem, eventList.firstChild); 
-      });
-    });
-    
-        </script>
+            const socket = io();
+            const eventList = document.getElementById("eventList");
+        
+            socket.on('new_event', (data) => {
+                const eventItem = document.createElement("li");
+                eventItem.textContent = `${data.timestamp} - ${data.label} (Confidence: ${data.confidence})`;
+                eventList.insertBefore(eventItem, eventList.firstChild); 
+            });
+        });
+    </script>
 </head>
 <body>
 
@@ -104,18 +111,25 @@
         </div>
 
         <div class="right-menu">
-            <button>침입 이벤트 설정</button>
-            <button>사람</button>
-            <button>동물</button>
-            <button>차량</button>
-            <a href="{{ url_for('select_roi') }}">
-                <button>영역 설정</button>
-            </a>
-            <button>불법 주정차 이벤트 설정</button>
-            <a href="{{ url_for('select_roi2') }}">
-                <button>영역 설정</button>
-            </a>
-            <button>시간 설정</button>
+            <!-- 침입 이벤트 설정 -->
+            <div class="event-group">
+                <strong>침입 이벤트 설정</strong>
+                <button>사람</button>
+                <button>동물</button>
+                <button>차량</button>
+                <a href="{{ url_for('select_roi') }}">
+                    <button>침입 영역 설정</button>
+                </a>
+            </div>
+
+            <!-- 불법 주정차 이벤트 설정 -->
+            <div class="event-group">
+                <strong>불법 주정차 이벤트 설정</strong>
+                <a href="{{ url_for('select_roi2') }}">
+                    <button>불법주차 영역 설정</button>
+                </a>
+                <button>시간 설정</button>
+            </div>
         </div>
     </div>
 
