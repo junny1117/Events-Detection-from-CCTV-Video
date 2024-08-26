@@ -59,7 +59,7 @@ def login():
             session['logged_in'] = True
             return redirect(url_for('index'))
         else:
-            return render_template('로그인화면.html', error='Invalid Credentials')
+            return render_template('로그인화면.html', error='사용자 이름 또는 비밀번호 불일치')
     return render_template('로그인화면.html')
 
 @app.route('/logout')
