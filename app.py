@@ -163,7 +163,7 @@ def update_roi(roi_type, roi):
 @login_required
 def events():
     events = db_session.query(Event).order_by(Event.timestamp.desc()).all()  # 최신 이벤트부터 정렬
-    return render_template('events.html', events=events)
+    return render_template('events-design.html', events=events)
 
 def gen_frames():
     global tracked_objects, tracked_events
