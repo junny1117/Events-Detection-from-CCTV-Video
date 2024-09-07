@@ -41,11 +41,6 @@
 ![image](https://github.com/user-attachments/assets/37d9f36d-3647-431d-aaea-a3507d8dae52)
 ![image](https://github.com/user-attachments/assets/06d24b35-fd87-44fe-ba15-0dce611c7176)
 
-## 실행 결과 이미지
-![image](https://github.com/user-attachments/assets/b2daba03-e1b1-4e2e-b719-f178453c172e)
-![image](https://github.com/user-attachments/assets/bc5bf651-99d7-404f-9315-ed72ce1d7362)
-![image](https://github.com/user-attachments/assets/1c6dc02d-1f9e-412f-b850-3247f98023c9)
-
 ## 파일 목록
 ### detection.py - 객체 검지, 이벤트 인지 수행
 ### video_stream.py - 비디오 스트림 처리 수행 
@@ -64,3 +59,8 @@
 2. 필요한 패키지 설치: `pip install -r requirements.txt`
 3. Flask 서버 실행: `flask run`
 4. 브라우저에서 `127.0.0.1:5000`으로 접속
+
+## 실행 결과 이미지
+![image](https://github.com/user-attachments/assets/b2daba03-e1b1-4e2e-b719-f178453c172e)
+![image](https://github.com/user-attachments/assets/bc5bf651-99d7-404f-9315-ed72ce1d7362)
+![image](https://github.com/user-attachments/assets/1c6dc02d-1f9e-412f-b850-3247f98023c9)
