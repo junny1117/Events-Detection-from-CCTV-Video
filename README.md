@@ -53,7 +53,7 @@
 ### database.py - 데이터베이스와의 연결 설정, 이벤트 데이터 CRUD 수행
 ### app.py - Flask 파일, 다양한 기능들을 통합하고 웹을 통해 동작하도록 함
 ### login.html - 로그인 페이지 템플릿
-### cctv-monitoring.html - 메인 페이지 템플릿
+### index.html - 메인 페이지 템플릿
 ### events.html - 결과 조회 페이지 템플릿
 ### best.pt - YOLO 객체 검지 모델
 ### test.mp4 - 테스트 용 영상
