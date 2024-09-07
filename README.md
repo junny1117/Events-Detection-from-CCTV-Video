@@ -46,6 +46,19 @@
 ![image](https://github.com/user-attachments/assets/bc5bf651-99d7-404f-9315-ed72ce1d7362)
 ![image](https://github.com/user-attachments/assets/1c6dc02d-1f9e-412f-b850-3247f98023c9)
 
+## 파일 목록
+### detection.py - 객체 검지, 이벤트 인지 수행
+### video_stream.py - 비디오 스트림 처리 수행 
+### events.py - 이벤트 처리, 저장, 사용자 알림 수행
+### database.py - 데이터베이스와의 연결 설정, 이벤트 데이터 CRUD 수행
+### app.py - Flask 파일, 다양한 기능들을 통합하고 웹을 통해 동작하도록 함
+### login.html - 로그인 페이지 템플릿
+### cctv-monitoring.html - 메인 페이지 템플릿
+### events.html - 결과 조회 페이지 템플릿
+### best.pt - YOLO 객체 검지 모델
+### test.mp4 - 테스트 용 영상
+### requirements.txt - 실행에 필요한 파일 목록
+
 ## 실행 방법(리눅스에서만 가능)
 1. 프로젝트 클론: `git clone https://github.com/junny1117/Events-Detection-from-CCTV-Video`
 2. 필요한 패키지 설치: `pip install -r requirements.txt`
