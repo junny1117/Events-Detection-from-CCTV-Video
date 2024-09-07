@@ -22,7 +22,6 @@ app.config['SECRET_KEY'] = 'secret!'
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 socketio = SocketIO(app)
 
-# Dummy credentials for login
 USERNAME = 'admin'
 PASSWORD = '1234'
 
@@ -59,8 +58,8 @@ def login():
             session['logged_in'] = True
             return redirect(url_for('index'))
         else:
-            return render_template('로그인화면.html', error='사용자 이름 또는 비밀번호 불일치')
-    return render_template('로그인화면.html')
+            return render_template('login.html', error='사용자 이름 또는 비밀번호 불일치')
+    return render_template('login.html')
 
 @app.route('/logout')
 @login_required
@@ -71,7 +70,7 @@ def logout():
 @app.route('/')
 @login_required
 def index():
-    return render_template('cctv-monitoring.html')
+    return render_template('index.html')
 
 @app.route('/video_feed')
 @login_required
@@ -163,7 +162,7 @@ def update_roi(roi_type, roi):
 @login_required
 def events():
     events = db_session.query(Event).order_by(Event.timestamp.desc()).all()  # 최신 이벤트부터 정렬
-    return render_template('events-design.html', events=events)
+    return render_template('events.html', events=events)
 
 def gen_frames():
     global tracked_objects, tracked_events

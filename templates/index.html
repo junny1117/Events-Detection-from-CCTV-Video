@@ -1,45 +1,141 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="utf-8">
-    <title>CCTV</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCTV 모니터링</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2c6e91;
+            padding: 20px;
+            color: white;
+        }
+        .header .product-name {
+            font-size: 24px;
+        }
+        .header a, .header button {
+            padding: 10px 20px;
+            background-color: #003f5c;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+        }
+        .main-content {
+            width: 75%;
+            text-align: center;
+        }
+        .main-content img {
+            width: 100%;
+        }
+        .right-menu {
+            width: 20%;
+            display: flex;
+            flex-direction: column;
+        }
+        .right-menu a {
+            text-decoration: none;
+        }
+        .right-menu button, .right-menu a button {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #003f5c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+        }
+        .footer {
+            background-color: #2c6e91;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        .event-group {
+            margin-bottom: 20px;
+        }
+        .event-group strong {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+    </style>
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <script>
-    document.addEventListener("DOMContentLoaded", () => {
-    const socket = io();
-    const eventList = document.getElementById("eventList");
-
-    socket.on('new_event', (data) => {
-    const eventItem = document.createElement("li");
-    eventItem.textContent = `${data.timestamp} - ${data.label} (Confidence: ${data.confidence})`;
-    eventList.insertBefore(eventItem, eventList.firstChild); 
-  });
-});
-
+        document.addEventListener("DOMContentLoaded", () => {
+            const socket = io();
+            const eventList = document.getElementById("eventList");
+        
+            socket.on('new_event', (data) => {
+                const eventItem = document.createElement("li");
+                eventItem.textContent = `${data.timestamp} - ${data.label} (Confidence: ${data.confidence})`;
+                eventList.insertBefore(eventItem, eventList.firstChild); 
+            });
+        });
     </script>
 </head>
 <body>
-    <header>
-        <h1>CCTV</h1>
-        <nav>
+
+    <div class="header">
+        <div class="product-name">침입 및 불법주차 자동 감시 시스템</div>
+        <div>
             <a href="{{ url_for('logout') }}">로그아웃</a>
+            <a href="{{ url_for('events') }}">결과 조회</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <img src="{{ url_for('video_feed') }}" alt="CCTV Feed" style="width: 640px; height: 480px;">
+            <p>감지된 이벤트</p>
+            <ul id="eventList"></ul>
             <br>
-            <a href="{{ url_for('events') }}">기록</a>
-            <br>
-            <a href="{{ url_for('select_roi') }}">침입 영역 설정</a> 
-            <br>
-            <a href="{{ url_for('select_roi2') }}">불법주차 영역 설정</a> 
-            <br>
-        </nav>
-    </header>
-    <main>
-        <img src="{{ url_for('video_feed') }}" alt="CCTV Feed" style="width: 640px; height: 480px;">
-        <br>
-        <h2>감지된 이벤트</h2>
-        <ul id="eventList"></ul>
-        <br>
-        <!--<a href="{{ url_for('settings') }}">영역 설정(좌표)</a> !-->
-    </main>
+        </div>
+
+        <div class="right-menu">
+            <!-- 침입 이벤트 설정 -->
+            <div class="event-group">
+                <strong>침입 이벤트 설정</strong>
+                <button>사람</button>
+                <button>동물</button>
+                <button>차량</button>
+                <a href="{{ url_for('select_roi') }}">
+                    <button>침입 영역 설정</button>
+                </a>
+            </div>
+
+            <!-- 불법 주정차 이벤트 설정 -->
+            <div class="event-group">
+                <strong>불법 주정차 이벤트 설정</strong>
+                <a href="{{ url_for('select_roi2') }}">
+                    <button>불법주차 영역 설정</button>
+                </a>
+                <button>시간 설정</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        검지 통계
+    </div>
+
 </body>
 </html>
