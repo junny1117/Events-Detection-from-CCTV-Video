@@ -52,7 +52,7 @@
 ### events.html - 결과 조회 페이지 템플릿
 ### best.pt - YOLO 객체 검지 모델
 ### test.mp4 - 테스트 용 영상
-### requirements.txt - 실행에 필요한 라이브러리 목록
+### requirements.txt - 실행에 필요한 패키지 목록
 
 ## 실행 방법(리눅스에서만 가능)
 1. 프로젝트 클론: `git clone https://github.com/junny1117/Events-Detection-from-CCTV-Video`
