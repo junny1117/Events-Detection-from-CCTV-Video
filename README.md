@@ -38,8 +38,8 @@
   - **설정 페이지**: 위험 구역 및 제한 구역 설정 가능.
 
 ## 주요 구현 흐름
-![image](https://github.com/user-attachments/assets/37d9f36d-3647-431d-aaea-a3507d8dae52)
 ![image](https://github.com/user-attachments/assets/06d24b35-fd87-44fe-ba15-0dce611c7176)
+![image](https://github.com/user-attachments/assets/37d9f36d-3647-431d-aaea-a3507d8dae52)
 
 ## 파일 목록
 ### detection.py - 객체 검지, 이벤트 인지 수행
