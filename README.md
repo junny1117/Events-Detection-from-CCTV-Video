@@ -20,7 +20,7 @@
 - **SQLite**: 데이터베이스
 - **Flask-SocketIO**: 실시간 알림 (웹 소켓 통신)
 - **HTML, CSS**: 웹페이지 탬플릿
-- - **Visual Studio Code**: 코드 작성
+- **Visual Studio Code**: 코드 작성
 - **Windows, Linux**: 운영체제
 
 ## 데이터베이스 설계
