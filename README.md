@@ -43,8 +43,9 @@
   - **설정 페이지**: 제한구역 및 불법주차 구역 설정 가능.
 
 ## 주요 구현 흐름
-![image](https://github.com/user-attachments/assets/06d24b35-fd87-44fe-ba15-0dce611c7176)
-![image](https://github.com/user-attachments/assets/37d9f36d-3647-431d-aaea-a3507d8dae52)
+![image](https://github.com/user-attachments/assets/733fa79a-bdd4-432b-b754-549a353bff17)
+![image](https://github.com/user-attachments/assets/69edb4b9-4b6d-4d46-9ae0-b3e2167210d7)
+
 
 ## 파일 목록
 ### detection.py - 객체 검지, 이벤트 인지 수행
