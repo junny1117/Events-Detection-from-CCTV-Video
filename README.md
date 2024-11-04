@@ -44,7 +44,8 @@
 
 ## 주요 구현 흐름
 ![image](https://github.com/user-attachments/assets/733fa79a-bdd4-432b-b754-549a353bff17)
-![image](https://github.com/user-attachments/assets/69edb4b9-4b6d-4d46-9ae0-b3e2167210d7)
+![{6F36B849-C23A-4960-88A3-1AC852F57EDD}](https://github.com/user-attachments/assets/2f2872cb-52fc-4142-bf9a-2d7e869ff707)
+
 
 
 ## 파일 목록
